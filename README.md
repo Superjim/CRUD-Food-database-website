@@ -1,5 +1,5 @@
 # CRUD-Food-database-website
-react, mysql, node.js
+react, mysql, node.js, axios, express
 
 My first react site, using Axios to send and request data to the backend. Still a big WIP.
 
