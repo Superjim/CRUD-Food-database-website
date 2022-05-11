@@ -21,21 +21,16 @@ app.use(cors());
 
 app.post("/api/insert", (req, res) => {
   const foodName = req.body.foodName;
-  const foodWeight = req.body.foodWeight;
   const kcal = req.body.kcal;
   const carbs = req.body.carbs;
   const fat = req.body.fat;
   const protein = req.body.protein;
 
   const input =
-    "INSERT INTO foods (foodname, weight, kcal, carbs, fat, protein) VALUES (?,?,?,?,?,?)";
-  db.query(
-    input,
-    [foodName, foodWeight, kcal, carbs, fat, protein],
-    (err, result) => {
-      console.log(result);
-    }
-  );
+    "INSERT INTO foods (foodname, kcal, carbs, fat, protein) VALUES (?,?,?,?,?)";
+  db.query(input, [foodName, kcal, carbs, fat, protein], (err, result) => {
+    console.log(result);
+  });
 });
 
 app.get("/api/get", (req, res) => {
