@@ -15,28 +15,32 @@ app.listen(3001, () => {
   console.log("server running port 3001");
 });
 
-app.use(bodyParser.urlencoded{extended: true}); 
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post("/api/insert", (req, res) => {
-
-    const foodName = req.body.foodName;
-    const foodWeight = req.body.foodWeight;
-    const kcal = req.body.kcal;
-    const carbs = req.body.carbs;
-    const fat = req.body.fat;
-    const protein = req.body.protein;
+  const foodName = req.body.foodName;
+  const foodWeight = req.body.foodWeight;
+  const kcal = req.body.kcal;
+  const carbs = req.body.carbs;
+  const fat = req.body.fat;
+  const protein = req.body.protein;
 
   const input =
     "INSERT INTO foods (foodname, weight, kcal, carbs, fat, protein) VALUES (?,?,?,?,?,?)";
-  db.query(input, [foodName, foodWeight, kcal, carbs, fat, protein], (err, result) => {});
+  db.query(
+    input,
+    [foodName, foodWeight, kcal, carbs, fat, protein],
+    (err, result) => {
+      console.log(result);
+    }
+  );
 });
 
-app.get("/", (req, res) => {
-  const sqlInsert =
-    "INSERT INTO foods (foodname, weight, kcal, carbs, fat, protein) VALUES ('beef','100','101','102','103','104')";
-
-  db.query(sqlInsert, (err, result) => {
-    res.send("hello world!");
+app.get("/api/get", (req, res) => {
+  const getInfo = "SELECT * FROM foods";
+  db.query(getInfo, (err, result) => {
+    res.send(result);
   });
 });

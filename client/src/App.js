@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
 function App() {
@@ -9,6 +9,13 @@ function App() {
   const [carbs, setCarbs] = useState("");
   const [fat, setFat] = useState("");
   const [protein, setProtein] = useState("");
+  const [foodList, setFoodList] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/get").then((response) => {
+      setFoodList(response.data);
+    });
+  });
 
   const addFood = () => {
     Axios.post("http://localhost:3001/api/insert", {
@@ -70,6 +77,14 @@ function App() {
         />
 
         <button onClick={addFood}>Add Food</button>
+        {foodList.map((val) => {
+          return (
+            <h3>
+              {val.foodname} - {val.kcal} kcal, {val.carbs} carbs, {val.fat}{" "}
+              fat, {val.protein} protein per {val.weight} grams
+            </h3>
+          );
+        })}
       </div>
     </div>
   );
