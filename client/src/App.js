@@ -68,11 +68,11 @@ function App() {
         />
 
         <button onClick={addFood}>Add Food</button>
-        {foodList.map((val) => {
+        {foodList.map((e) => {
           return (
             <h3>
-              {val.foodname} - {val.kcal} kcal, {val.carbs}g carbs, {val.fat}g{" "}
-              fat, {val.protein}g protein
+              {e.foodname} - {e.kcal} kcal, {e.carbs}g carbs, {e.fat}g fat,{" "}
+              {e.protein}g protein
             </h3>
           );
         })}
