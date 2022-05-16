@@ -15,20 +15,25 @@ function App() {
   //the data is taken from a MYsql database and contains
   //foodname, kcal, carbs, fat and protein
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/get").then((response) => {
+    Axios.get(
+      "https://nutritional-information-mysql.herokuapp.com/api/get"
+    ).then((response) => {
       setFoodList(response.data);
     });
   });
 
   //passes new food data to the backend post API
   const addFood = () => {
-    Axios.post("http://localhost:3001/api/insert", {
-      foodName: foodName,
-      kcal: kcal,
-      carbs: carbs,
-      fat: fat,
-      protein: protein,
-    });
+    Axios.post(
+      "https://nutritional-information-mysql.herokuapp.com/api/insert",
+      {
+        foodName: foodName,
+        kcal: kcal,
+        carbs: carbs,
+        fat: fat,
+        protein: protein,
+      }
+    );
 
     //adds the food to the foodList array so it is rendered onscreen
     setFoodList([
@@ -45,7 +50,9 @@ function App() {
 
   //passes the variable sent (foodname) to the backend delete API
   const deleteFood = (food) => {
-    Axios.delete(`http://localhost:3001/api/delete/${food}`);
+    Axios.delete(
+      `https://nutritional-information-mysql.herokuapp.com/api/delete/${food}`
+    );
   };
 
   return (
