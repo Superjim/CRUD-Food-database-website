@@ -6,15 +6,20 @@ const mysql = require("mysql");
 
 //database login
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "food_database",
+  host: "eu-cdbr-west-02.cleardb.net",
+  user: "b857774e4187b7",
+  password: "6b163e80",
+  database: "heroku_c7bdbf2d9cf067b",
 });
 
+//clearDB info
+//mysql://b857774e4187b7:6b163e80@eu-cdbr-west-02.cleardb.net/heroku_c7bdbf2d9cf067b?reconnect=true
+
 //start server on this port
-app.listen(3001, () => {
-  console.log("server on port 3001");
+
+const PORT = 3001;
+app.listen(process.env.PORT || PORT, () => {
+  console.log(`server on port ${PORT}`);
 });
 
 app.use(express.json());
