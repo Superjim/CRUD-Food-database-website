@@ -23,9 +23,22 @@ function App() {
       carbs: carbs,
       fat: fat,
       protein: protein,
-    }).then(() => {
-      alert("Food Added");
     });
+
+    setFoodList([
+      ...foodList,
+      {
+        foodName: foodName,
+        kcal: kcal,
+        carbs: carbs,
+        fat: fat,
+        protein: protein,
+      },
+    ]);
+  };
+
+  const deleteFood = (food) => {
+    Axios.delete(`http://localhost:3001/api/delete/${food}`);
   };
 
   return (
@@ -70,10 +83,16 @@ function App() {
         <button onClick={addFood}>Add Food</button>
         {foodList.map((val) => {
           return (
-            <h3>
-              {val.foodname} - {val.kcal} kcal, {val.carbs}g carbs, {val.fat}g{" "}
-              fat, {val.protein}g protein
-            </h3>
+            <div className="foodContainer">
+              <h3>{val.foodname}</h3>
+              <p>
+                {val.kcal} kcal, {val.carbs}g carbs, {val.fat}g fat,{" "}
+                {val.protein}g protein
+              </p>
+              <button onClick={() => deleteFood(val.foodname)}>
+                Delete Food
+              </button>
+            </div>
           );
         })}
       </div>

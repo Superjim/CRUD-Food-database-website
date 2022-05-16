@@ -36,6 +36,7 @@ app.post("/api/insert", (req, res) => {
 app.get("/api/get", (req, res) => {
   const getInfo = "SELECT * FROM foods";
   db.query(getInfo, (err, result) => {
+    if (err) console.log(err);
     res.send(result);
   });
 });
