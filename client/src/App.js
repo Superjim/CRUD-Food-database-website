@@ -24,26 +24,13 @@ function App() {
       fat: fat,
       protein: protein,
     }).then(() => {
-      setFoodList([
-        ...foodList,
-        {
-          foodName: foodName,
-          kcal: kcal,
-          carbs: carbs,
-          fat: fat,
-          protein: protein,
-        },
-      ]);
+      alert("Food Added");
     });
-  };
-
-  const deleteFood = (foodname) => {
-    Axios.delete(`http://localhost:3001/api/delete/${foodname}`);
   };
 
   return (
     <div className="App">
-      <h1>Nutrition Information</h1>
+      <h1>Calorie Tracker</h1>
       <div className="addFood">
         <label>Food Name:</label>
         <input
@@ -81,19 +68,12 @@ function App() {
         />
 
         <button onClick={addFood}>Add Food</button>
-        {foodList.map((e) => {
+        {foodList.map((val) => {
           return (
-            <div className="foodContainer">
-              <h3>{e.foodname}</h3>
-              <p>
-                {e.kcal} kcal, {e.carbs}g carbs, {e.fat}g fat, {e.protein}g
-                protein
-              </p>
-              <input type="text"></input>
-              <button>Edit</button>
-
-              <button onClick={deleteFood(e.foodname)}>Remove</button>
-            </div>
+            <h3>
+              {val.foodname} - {val.kcal} kcal, {val.carbs}g carbs, {val.fat}g{" "}
+              fat, {val.protein}g protein
+            </h3>
           );
         })}
       </div>
