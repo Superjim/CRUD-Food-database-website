@@ -1,6 +1,10 @@
 .App {
   font-size: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .addFood {
@@ -8,19 +12,55 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 1rem 0rem 1rem 0rem;
+  padding: 1rem;
+  background-color: aliceblue;
+  width: 35vw;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .addFood input {
-  width: 30vh;
+  width: 30vw;
   height: 2rem;
 }
 
+.addFood button {
+  margin-top: 0.5rem;
+}
+
+.foodDisplay {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .foodContainer {
-  border: 1px solid black;
   border-radius: 1rem;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 0rem 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: aliceblue;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.pieChart {
+  height: 150px;
+  width: 150px;
+  font-size: 0.5rem;
+}
+
+.foodData {
+  text-align: left;
+}
+
+.dataChartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }

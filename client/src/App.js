@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { PieChart } from "react-minimal-pie-chart";
 
 function App() {
   const [foodName, setFoodName] = useState("");
@@ -10,12 +11,16 @@ function App() {
   const [protein, setProtein] = useState("");
   const [foodList, setFoodList] = useState([]);
 
+  //calls the backend and stores the response in an array
+  //the data is taken from a MYsql database and contains
+  //foodname, kcal, carbs, fat and protein
   useEffect(() => {
     Axios.get("http://localhost:3001/api/get").then((response) => {
       setFoodList(response.data);
     });
   });
 
+  //passes new food data to the backend post API
   const addFood = () => {
     Axios.post("http://localhost:3001/api/insert", {
       foodName: foodName,
@@ -25,6 +30,7 @@ function App() {
       protein: protein,
     });
 
+    //adds the food to the foodList array so it is rendered onscreen
     setFoodList([
       ...foodList,
       {
@@ -37,13 +43,17 @@ function App() {
     ]);
   };
 
+  //passes the variable sent (foodname) to the backend delete API
   const deleteFood = (food) => {
     Axios.delete(`http://localhost:3001/api/delete/${food}`);
   };
 
   return (
     <div className="App">
-      <h1>Calorie Tracker</h1>
+      <h1>Nutritional Database</h1>
+      {
+        //Add food input container
+      }
       <div className="addFood">
         <label>Food Name:</label>
         <input
@@ -52,44 +62,86 @@ function App() {
           onChange={(e) => setFoodName(e.target.value)}
         />
 
-        <label>kcal:</label>
+        <label>Energy (kcal):</label>
         <input
           type="number"
           name="kcal"
           onChange={(e) => setKcal(e.target.value)}
         />
 
-        <label>Carbs (grams):</label>
+        <label>Carbs (g):</label>
         <input
           type="number"
           name="carbs"
           onChange={(e) => setCarbs(e.target.value)}
         />
 
-        <label>Fat (grams):</label>
+        <label>Fat (g):</label>
         <input
           type="number"
           name="fat"
           onChange={(e) => setFat(e.target.value)}
         />
 
-        <label>Protein (grams):</label>
+        <label>Protein (g):</label>
         <input
           type="number"
           name="protein"
           onChange={(e) => setProtein(e.target.value)}
         />
-
+        {
+          //Add food button
+        }
         <button onClick={addFood}>Add Food</button>
-        {foodList.map((val) => {
+      </div>
+      {
+        //Renders each object in the foodList array via array.map
+        //displays title, kcal, carbs fat and protein
+        //A piechart is created which displays the % of carbs, fat and protein
+      }
+      <div className="foodDisplay">
+        {foodList.map((e) => {
           return (
             <div className="foodContainer">
-              <h3>{val.foodname}</h3>
-              <p>
-                {val.kcal} kcal, {val.carbs}g carbs, {val.fat}g fat,{" "}
-                {val.protein}g protein
-              </p>
-              <button onClick={() => deleteFood(val.foodname)}>
+              <h3>{e.foodname}</h3>
+              <div className="dataChartContainer">
+                <div className="foodData">
+                  <p>Energy (kcal) : {e.kcal}</p>
+                  <p>Carbohydrate (g): {e.carbs}</p>
+                  <p>Fat (g): {e.fat}</p>
+                  <p>Protein (g): {e.protein}</p>
+                </div>
+                <div className="pieChart">
+                  <PieChart
+                    label={({ dataEntry }) =>
+                      `${dataEntry.title} ${Math.round(dataEntry.percentage)}%`
+                    }
+                    data={[
+                      {
+                        title: "Carbs",
+                        value: e.carbs,
+                        color: "#804000",
+                      },
+                      {
+                        title: "Fat",
+                        value: e.fat,
+                        color: "#FFFF00",
+                      },
+                      {
+                        title: "Protein",
+                        value: e.protein,
+                        color: "#C13C37",
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+              {
+                //Delete food button
+                //Passes foodname to deleteFood function
+                //Which is sent to the backend
+              }
+              <button onClick={() => deleteFood(e.foodname)}>
                 Delete Food
               </button>
             </div>

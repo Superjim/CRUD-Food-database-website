@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const mysql = require("mysql");
 
+//database login
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -11,6 +12,7 @@ const db = mysql.createPool({
   database: "food_database",
 });
 
+//start server on this port
 app.listen(3001, () => {
   console.log("server on port 3001");
 });
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+//insert new row into database foods table
 app.post("/api/insert", (req, res) => {
   const foodName = req.body.foodName;
   const kcal = req.body.kcal;
@@ -33,6 +36,7 @@ app.post("/api/insert", (req, res) => {
   });
 });
 
+//get all information from foods table
 app.get("/api/get", (req, res) => {
   const getInfo = "SELECT * FROM foods";
   db.query(getInfo, (err, result) => {
@@ -41,6 +45,8 @@ app.get("/api/get", (req, res) => {
   });
 });
 
+//delete food in database by foodname
+//i should change this to unique ID
 app.delete("/api/delete/:foodname", (req, res) => {
   const foodname = req.params.foodname;
   const deleteInfo = "DELETE FROM foods WHERE foodname = ?";
