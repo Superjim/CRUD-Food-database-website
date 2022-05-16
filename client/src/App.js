@@ -18,6 +18,7 @@ function App() {
     Axios.get(
       "https://nutritional-information-mysql.herokuapp.com/api/get"
     ).then((response) => {
+      console.log(response);
       setFoodList(response.data);
     });
   });
