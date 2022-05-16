@@ -18,7 +18,7 @@ function App() {
     Axios.get(
       "https://nutritional-information-mysql.herokuapp.com/api/get"
     ).then((response) => {
-      setFoodList(JSON.parse(response.data));
+      setFoodList(response.data);
     });
   });
 
