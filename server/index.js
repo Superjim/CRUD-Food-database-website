@@ -8,11 +8,11 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "password",
-  database: "fooddatabase",
+  database: "food_database",
 });
 
 app.listen(3001, () => {
-  console.log("server running port 3001");
+  console.log("server on port 3001");
 });
 
 app.use(express.json());
