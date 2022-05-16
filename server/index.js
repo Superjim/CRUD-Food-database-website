@@ -39,3 +39,11 @@ app.get("/api/get", (req, res) => {
     res.send(result);
   });
 });
+
+app.delete("/api/delete/:foodname", (req, res) => {
+  const foodname = req.params.foodname;
+  const deleteInfo = "DELETE FROM foods WHERE foodname = ?";
+  db.query(deleteInfo, foodname, (err, result) => {
+    if (err) console.log(err);
+  });
+});

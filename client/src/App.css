@@ -1,5 +1,6 @@
 .App {
   font-size: 1rem;
+  text-align: center;
 }
 
 .addFood {
@@ -12,4 +13,14 @@
 .addFood input {
   width: 30vh;
   height: 2rem;
+}
+
+.foodContainer {
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 0rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
